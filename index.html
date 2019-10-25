@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .demo {
+            width: 50px;
+            height: 50px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div v-bind:style="objStyle">
+        <h1>FirstName = {{ firstName }}</h1>
+        <input type="text" v-model="firstName" placeholder="first name">
+        <div class="demo" v-bind:class="objClass"></div>
+        <button v-on:click="changeActive">Change Active</button>
+
+        <hr>
+
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+            Welcome
+        </div>
+
+        <br>
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <button v-on:click="changeTabs('login')" class="btn btn-outline-primary w-50">Login</button>
+                <button v-on:click="changeTabs('register')" class="btn btn-outline-success w-50">Register</button>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-5">
+                <div class="border border-primary col-9">
+                    <div class="login" v-if="tabSelected === 'login'">
+                        <h2 class="col-12 text-center">Login</h2>
+                        <div class="col-12">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Use name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="register" v-else-if="tabSelected === 'register'">
+                        <h2 class="col-12 text-center">Register</h2>
+                        <div class="col-12">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Use name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="formGroupExampleInput4" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="formGroupExampleInput5" placeholder="Confirm Password">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <ul>
+                    <li v-for="(value, key) in scores">{{ key }}: {{ value }}</li>
+                </ul>
+            </div>
+            <div class="row mt-5 text-light d-inline">
+                <div v-for="user in userActive">{{ user.email }}</div>
+            </div>
+            <div class="row mt-5">
+                <div v-for="abc in listBlogs" class="col-sm-6 mb-5">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ abc.title }}
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                {{ abc.body }}
+                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            firstName: '',
+            isActive: true,
+            isError: false,
+
+            activeColor: 'red',
+            fontSize: 30,
+            bg : 'https://www.technocrazed.com/wp-content/uploads/2015/12/Bugatti-wallpaper-16.jpg',
+            tabSelected: 'login',
+            arrUser: [
+                { email: 'test1@gmail.com', isActive: false },
+                { email: 'test2@gmail.com', isActive: true },
+                { email: 'test3@gmail.com', isActive: false },
+                { email: 'test4@gmail.com', isActive: true },
+                { email: 'test5@gmail.com', isActive: false },
+                { email: 'test6@gmail.com', isActive: false },
+                { email: 'test7@gmail.com', isActive: false },
+            ],
+            scores: {
+                math: 9.0,
+                literature: 8.0,
+                chemistry: 9.0
+            },
+            listBlogs: [
+                {
+                    "userId": 1,
+                    "id": 1,
+                    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                },
+                {
+                    "userId": 1,
+                    "id": 2,
+                    "title": "qui est esse",
+                    "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+                },
+                {
+                    "userId": 1,
+                    "id": 3,
+                    "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+                    "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+                },
+                {
+                    "userId": 1,
+                    "id": 4,
+                    "title": "eum et est occaecati",
+                    "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+                },
+                {
+                    "userId": 1,
+                    "id": 5,
+                    "title": "nesciunt quas odio",
+                    "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+                },
+                {
+                    "userId": 1,
+                    "id": 6,
+                    "title": "dolorem eum magni eos aperiam quia",
+                    "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+                },
+                {
+                    "userId": 1,
+                    "id": 7,
+                    "title": "magnam facilis autem",
+                    "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
+                },
+                {
+                    "userId": 1,
+                    "id": 8,
+                    "title": "dolorem dolore est ipsam",
+                    "body": "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae"
+                },
+                {
+                    "userId": 1,
+                    "id": 9,
+                    "title": "nesciunt iure omnis dolorem tempora et accusantium",
+                    "body": "consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas"
+                },
+                {
+                    "userId": 1,
+                    "id": 10,
+                    "title": "optio molestias id quia eum",
+                    "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
+                },
+                {
+                    "userId": 2,
+                    "id": 11,
+                    "title": "et ea vero quia laudantium autem",
+                    "body": "delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus\naccusamus in eum beatae sit\nvel qui neque voluptates ut commodi qui incidunt\nut animi commodi"
+                }
+            ],
+        },
+        methods: {
+            changeActive() {
+                this.isActive = !this.isActive;
+            },
+            changeTabs(tab) {
+                this.tabSelected = tab;
+            }
+        },
+        computed: {
+            objClass: function () {
+                return {
+                    'bg-primary': this.isActive,
+                    'bg-secondary': this.isError
+                }
+            },
+            // background() {
+            //     return 'url(' + this.bg + ')';
+            // }
+            objStyle: function () {
+                return {
+                    backgroundImage : 'url(' + this.bg + ')',
+                    margin: '10px'
+                }
+            },
+            userActive() {
+              return this.arrUser.filter(function (u) {
+                  return u.isActive
+              });
+            }
+        }
+    })
+</script>
+</html>
